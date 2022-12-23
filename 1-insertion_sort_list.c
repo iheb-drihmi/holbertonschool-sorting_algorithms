@@ -2,32 +2,49 @@
 /**
 * insertion_sort_list - a function that sorts a doubly linked list of integers 
 * @list: linked list
+*Return: return
 */
 void insertion_sort_list(listint_t **list)
 {
 	listint_t *tmp;
-	int num;
 
-	if (!list)
-		return;
-	tmp = *list;
-	while (tmp)
+	
+	if (list == NULL || *list == NULL)
 	{
-		while (tmp)
+		return;
+	}
+
+	tmp = (*list)->next;
+
+	while (tmp != NULL)
+	{
+		while (tmp->prev != NULL && tmp->n < tmp->prev->n)
 		{
-			if (tmp->next)
+			tmp->prev->next = tmp->next;
+			if (tmp->next != NULL)
 			{
-				if (tmp->num > tmp->next->num)
-				{
-					num = tmp->num;
-					*(int *)&tmp->num = tmp->next->num;
-					*(int *)&tmp->next->num = num;
-					tmp = *list;
-					print_list(*list);
-					break;
-				}
+				tmp->next->prev = tmp->prev;
 			}
-			tmp = tmp->next;
+			tmp->next = tmp->prev;
+			tmp->prev = tmp->prev->prev;
+			tmp->next->prev = tmp;
+			
+			if (tmp->prev == NULL)
+			
+			
+			{
+				(*list) = tmp;
+			}
+			
+			
+			
+		    else
+			{
+				tmp->prev->next = tmp;
+			}
+			print_list(*list);
 		}
+		
+		tmp = tmp->next;
 	}
 }
